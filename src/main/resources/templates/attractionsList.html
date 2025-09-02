@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Attraction list</title>
+    <link th:href="@{/main.css}" rel="stylesheet">
+</head>
+<body>
+<h1>Alle attraktioner</h1>
+
+<table>
+    <tr th:if="${attractions.isEmpty()}">Der er ikke nogen attraktioner</tr>
+    <tr th:if="${!attractions.isEmpty()}">
+        <th>Navn</th> <th>Beskrivelse</th>
+    </tr>
+    <tr th:each="attraction: ${attractions}">
+        <td th:text="${attraction.name}"></td>
+        <td th:text="${attraction.description}"></td>
+        <td>
+            <button>
+                <a th:href="@{/attractions/{name}/tags(name=${attraction.getName()})}">Tags </a>
+            </button>
+    </tr>
+
+
+</table>
+
+<button>
+    <a th:href="@{/attractions/add}">Tilføj attraktion </a>
+</button>
+
+</body>
+</html>
