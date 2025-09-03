@@ -36,15 +36,20 @@ public class TouristAttractionController {
         return "attraction";
     }
 
-    //Attraction tag
+    // Attraction tags side
     @GetMapping("{name}/tags")
-    public String showTags(@PathVariable String name, Model model) {
-        TouristAttraction touristattraction = service.getAttractionByName(name);
-        if (touristattraction == null) {
+    public String showAttractionTags(@PathVariable String name, Model model) {
+        TouristAttraction attraction = service.getAttractionByName(name);
+
+        if (attraction == null) {
             throw new IllegalArgumentException("Attraktion ikke fundet.");
         }
-        model.addAttribute("attraction", touristattraction);
+
+        model.addAttribute("attraction", attraction);
+        model.addAttribute("tags", attraction.getTags());
+        return "attractionTag";
     }
+
 
 
     // Create Form
