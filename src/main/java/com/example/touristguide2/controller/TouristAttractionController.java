@@ -20,7 +20,7 @@ public class TouristAttractionController {
     }
 
 
-    //Find alle attraktioner
+    // Find alle attraktioner
     @GetMapping
     public String getAllAttractions(Model model) {
         List<TouristAttraction> touristAttractions = service.getAllAttractions();
@@ -28,41 +28,62 @@ public class TouristAttractionController {
         return "attractionsList";
     }
 
-    //Find bestemt attraktion
+    // Find bestemt attraktion
     @GetMapping("{name}")
-    public ResponseEntity<TouristAttraction> getAttractionByName(@PathVariable String name) {
+    public String getAttractionByName(@PathVariable String name, Model model) {
         TouristAttraction touristAttraction = service.getAttractionByName(name);
-        return new ResponseEntity<>(touristAttraction, HttpStatus.OK);
+        model.addAttribute("attractions", touristAttraction);
+        return "attraction";
     }
 
-    // Add Attraction
-    @PostMapping("add")
-    public ResponseEntity<TouristAttraction> addAttraction(@RequestBody TouristAttraction touristAttraction) {
+    //Attraction tag
+    @GetMapping("{name}/tags")
+    public String showTags(@PathVariable String name, Model model) {
+        TouristAttraction touristattraction = service.getAttractionByName(name);
+        if (touristattraction == null) {
+            throw new IllegalArgumentException("Attraktion ikke fundet.");
+        }
+        model.addAttribute("attraction", attraction)
+    }
+
+    // Create Form
+    @GetMapping("add")
+    public String showAddForm(Model model) {
+        model.addAttribute("attraction", new TouristAttraction());
+        return "addAttraction";
+    }
+
+    // Create Submit
+    @PostMapping("/add")
+    public String addAttraction(@ModelAttribute TouristAttraction touristAttraction) {
         service.addAttraction(touristAttraction);
-        return new ResponseEntity<>(touristAttraction, HttpStatus.OK);
-
+        return "redirect/attractions";
     }
 
-    //update attraction
-    @PostMapping("/update")
-    public ResponseEntity<TouristAttraction> updateAttraction(@RequestBody TouristAttraction attraction, @RequestParam String name) {
-        TouristAttraction updatedAttraction = service.updateAttraction(name, attraction.getName(), attraction.getDescription());
-        if (updatedAttraction != null) {
-            return new ResponseEntity<>(updatedAttraction, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    // save endpoint
+    // /{name}/edit
+
+
+    // Update Form
+    @GetMapping("/{name}/update")
+    public String showUpdateForm(@PathVariable String name, Model model) {
+        TouristAttraction attraction = service.getAttractionByName(name);
+        model.addAttribute("attraction", attraction);
+        return "updateAttraction";
+    }
+
+    //Update Submit
+    @PostMapping("/{name}/update")
+    public String updateAttraction(@PathVariable String name, @ModelAttribute TouristAttraction updatedAttraction) {
+        service.updateAttraction(name, updatedAttraction.getName(), updatedAttraction.getDescription());
+        return "redirect/attractions";
     }
 
 
-    // Delete bestemt attraktion
+    // DELETE
     @PostMapping("/delete/{name}")
-    public ResponseEntity<TouristAttraction> deleteAttraction(@PathVariable String name) {
-        TouristAttraction deletedAttraction = service.deleteAttraction(name);
-        if (deletedAttraction != null) {
-            return new ResponseEntity<>(deletedAttraction, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public String deleteAttraction(@PathVariable String name) {
+        service.deleteAttraction(name);
+        return "redirect:/attractions";
     }
-
 }
