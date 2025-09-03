@@ -43,42 +43,39 @@ public class TouristAttractionController {
         if (touristattraction == null) {
             throw new IllegalArgumentException("Attraktion ikke fundet.");
         }
-        model.addAttribute("attraction", attraction)
+        model.addAttribute("attraction", touristattraction);
     }
+
 
     // Create Form
     @GetMapping("add")
     public String showAddForm(Model model) {
         model.addAttribute("attraction", new TouristAttraction());
+        model.addAttribute("cities", service.getCities());
+        model.addAttribute("tags", service.getTags());
         return "addAttraction";
     }
 
-    // Create Submit
-    @PostMapping("/add")
-    public String addAttraction(@ModelAttribute TouristAttraction touristAttraction) {
-        service.addAttraction(touristAttraction);
-        return "redirect/attractions";
-    }
+     @PostMapping("/save")
+        public String saveAttraction(@ModelAttribute TouristAttraction attraction) {
+            service.addAttraction(attraction);
+            return "redirect:/attractions";
+        }
 
-    // save endpoint
-    // /{name}/edit
-
-
-    // Update Form
-    @GetMapping("/{name}/update")
-    public String showUpdateForm(@PathVariable String name, Model model) {
-        TouristAttraction attraction = service.getAttractionByName(name);
-        model.addAttribute("attraction", attraction);
-        return "updateAttraction";
+    @GetMapping("/{name}/edit")
+    public String showEditForm(@PathVariable String name, Model model) {
+        model.addAttribute("attraction", service.getAttractionByName(name));
+        model.addAttribute("cities", service.getCities());
+        model.addAttribute("tags", service.getTags());
+        return "editAttraction";
     }
 
     //Update Submit
     @PostMapping("/{name}/update")
     public String updateAttraction(@PathVariable String name, @ModelAttribute TouristAttraction updatedAttraction) {
         service.updateAttraction(name, updatedAttraction.getName(), updatedAttraction.getDescription());
-        return "redirect/attractions";
+        return "redirect:/attractions";
     }
-
 
     // DELETE
     @PostMapping("/delete/{name}")

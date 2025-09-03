@@ -40,4 +40,13 @@ public class TouristAttractionService {
         return repository.updateAttraction(oldName, newName, description);
     }
 
+    public List<String> getCities() {
+        return repository.getCities();
+    }
+
+    public List<String> getTags() {
+        return repository.getTags();
+    }
 }
+
+

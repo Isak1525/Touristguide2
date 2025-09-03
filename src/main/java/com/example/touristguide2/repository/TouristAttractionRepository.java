@@ -11,9 +11,9 @@ public class TouristAttractionRepository {
     private List<TouristAttraction> attractions = new ArrayList<>();
 
     public TouristAttractionRepository() {
-        attractions.add(new TouristAttraction( "Tivoli", "Forlystelsespark i København"));
-        attractions.add(new TouristAttraction( "Den Lille Havfrue", "Berømt statue ved havnen"));
-        attractions.add(new TouristAttraction("Rundetårn", "Høj bygning i Københavns centrum"));
+        attractions.add(new TouristAttraction( "Tivoli", "Forlystelsespark", "København", List.of("Børnevenlig")));
+        attractions.add(new TouristAttraction( "Den Lille Havfrue", "Berømt statue ved havnen", "København", List.of("Gratis")));
+        attractions.add(new TouristAttraction("Rundetårn", "Høj bygning i Københavns centrum", "København", List.of("Historie")));
     }
 
     public List<TouristAttraction> getAllAttractions() {
@@ -58,4 +58,14 @@ public class TouristAttractionRepository {
         }
         return null;
     }
+
+    // Rolldown menu
+    public List<String> getCities() {
+        return List.of("København", "Odense", "Aarhus", "Aalborg", "Esbjerg");
+    }
+
+    public List<String> getTags() {
+        return List.of("Børnevenlig", "Gratis", "Kunst", "Museum", "Natur");
+    }
 }
+

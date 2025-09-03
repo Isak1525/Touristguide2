@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${attraction.name}">Attraktion</title>
+</head>
+<body>
+<h1 th:text="${attraction.name}"></h1>
+
+<p><b>Beskrivelse:</b> <span th:text="${attraction.description}"></span></p>
+<p><b>By:</b> <span th:text="${attraction.city}"></span></p>
+
+<a th:href="@{/attractions}">Tilbage til oversigten</a>
+</body>
+</html>

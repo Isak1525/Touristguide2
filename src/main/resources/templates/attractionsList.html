@@ -1,33 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Attraction list</title>
-    <link th:href="@{/main.css}" rel="stylesheet">
+    <title>Turistattraktioner</title>
 </head>
 <body>
-<h1>Alle attraktioner</h1>
+<h1>Turistattraktioner</h1>
 
-<table>
-    <tr th:if="${attractions.isEmpty()}">Der er ikke nogen attraktioner</tr>
-    <tr th:if="${!attractions.isEmpty()}">
-        <th>Navn</th> <th>Beskrivelse</th>
+<table border="1">
+    <tr>
+        <th>Navn</th>
+        <th>Beskrivelse</th>
+        <th>By</th>
+        <th>Handlinger</th>
     </tr>
-    <tr th:each="attraction: ${attractions}">
+    <tr th:each="attraction : ${attractions}">
         <td th:text="${attraction.name}"></td>
         <td th:text="${attraction.description}"></td>
+        <td th:text="${attraction.city}"></td>
         <td>
-            <button>
-                <a th:href="@{/attractions/{name}/tags(name=${attraction.getName()})}">Tags </a>
-            </button>
+            <a th:href="@{/attractions/{name}(name=${attraction.name})}">Vis</a> |
+            <a th:href="@{/attractions/{name}/edit(name=${attraction.name})}">Rediger</a> |
+            <form th:action="@{/attractions/delete/{name}(name=${attraction.name})}" method="post" style="display:inline;">
+                <button type="submit">Slet</button>
+            </form> |
+            <a th:href="@{/attractions/{name}/tags(name=${attraction.name})}">Tags</a>
+        </td>
     </tr>
-
-
 </table>
 
-<button>
-    <a th:href="@{/attractions/add}">Tilføj attraktion </a>
-</button>
-
+<br>
+<a th:href="@{/attractions/add}">Tilføj ny attraktion</a>
 </body>
 </html>
