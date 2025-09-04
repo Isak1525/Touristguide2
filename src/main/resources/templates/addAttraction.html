@@ -7,7 +7,7 @@
 <body>
 <h1>Tilføj en ny attraktion</h1>
 
-<form th:action="@{/attractions/add}" th:object="${attraction}" method="post">
+<form th:action="@{/attractions/save}" th:object="${attraction}" method="post">
     <label for="name">Navn:</label>
     <input type="text" id="name" th:field="*{name}" required><br>
 
