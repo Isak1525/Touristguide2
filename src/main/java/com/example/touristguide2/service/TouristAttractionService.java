@@ -36,8 +36,8 @@ public class TouristAttractionService {
     }
 
     // Update
-    public TouristAttraction updateAttraction(String oldName, String newName, String description) {
-        return repository.updateAttraction(oldName, newName, description);
+    public TouristAttraction updateAttraction(String oldName, String newName, String description, String city, List<String> tags) {
+        return repository.updateAttraction(oldName, newName, description, city, tags);
     }
 
     public List<String> getCities() {

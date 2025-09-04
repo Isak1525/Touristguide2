@@ -75,11 +75,10 @@ public class TouristAttractionController {
         return "editAttraction";
     }
 
-    //Update Submit
     @PostMapping("/{name}/update")
-    public String updateAttraction(@PathVariable String name, @ModelAttribute TouristAttraction updatedAttraction) {
-        service.updateAttraction(name, updatedAttraction.getName(), updatedAttraction.getDescription());
-        return "redirect:/attractions";
+    public String updateAttraction(@PathVariable String name,@ModelAttribute TouristAttraction updatedAttraction) {
+        service.updateAttraction(name,updatedAttraction.getName(),updatedAttraction.getDescription(),updatedAttraction.getCity(),updatedAttraction.getTags());
+        return "redirect:/attractions"; 
     }
 
     // DELETE
