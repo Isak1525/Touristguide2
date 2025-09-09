@@ -1,5 +1,7 @@
 package com.example.touristguide2.controller;
 
+import com.example.touristguide2.models.City;
+import com.example.touristguide2.models.Tags;
 import com.example.touristguide2.models.TouristAttraction;
 import com.example.touristguide2.service.TouristAttractionService;
 import org.springframework.http.HttpStatus;
@@ -50,14 +52,12 @@ public class TouristAttractionController {
         return "attractionTag";
     }
 
-
-
     // Create Form
     @GetMapping("add")
     public String showAddForm(Model model) {
         model.addAttribute("attraction", new TouristAttraction());
-        model.addAttribute("cities", service.getCities());
-        model.addAttribute("tags", service.getTags());
+        model.addAttribute("cities", City.values());
+        model.addAttribute("tags", Tags.values());
         return "addAttraction";
     }
 
@@ -70,8 +70,8 @@ public class TouristAttractionController {
     @GetMapping("/{name}/edit")
     public String showEditForm(@PathVariable String name, Model model) {
         model.addAttribute("attraction", service.getAttractionByName(name));
-        model.addAttribute("cities", service.getCities());
-        model.addAttribute("tags", service.getTags());
+        model.addAttribute("cities", City.values());
+        model.addAttribute("tags", Tags.values());
         return "editAttraction";
     }
 

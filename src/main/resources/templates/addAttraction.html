@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Tilføj attraktion</title>
+    <link th:href="@{/main.css}" rel="stylesheet">
 </head>
 <body>
 <h1>Tilføj en ny attraktion</h1>
@@ -15,7 +16,22 @@
     <input type="text" id="description" th:field="*{description}" required><br>
 
     <label for="city">By:</label>
-    <input type="text" id="city" th:field="*{city}"><br>
+    <select id="city" th:field="*{city}">
+        <option th:each="city : ${cities}"
+                th:value="${city}"
+                th:text="${city}">
+        </option>
+    </select>
+
+    <fieldset>
+        <legend>Vælg tags:</legend>
+        <label th:each="tag : ${tags}">
+            <input type="checkbox"
+                   th:value="${tag}"
+                   th:field="*{tags}">
+            <span th:text="${tag}"></span>
+        </label>
+    </fieldset>
 
     <button type="submit">Gem</button>
 </form>

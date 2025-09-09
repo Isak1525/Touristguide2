@@ -1,5 +1,7 @@
 package com.example.touristguide2.service;
 
+import com.example.touristguide2.models.City;
+import com.example.touristguide2.models.Tags;
 import com.example.touristguide2.models.TouristAttraction;
 import com.example.touristguide2.repository.TouristAttractionRepository;
 import org.springframework.stereotype.Service;
@@ -36,17 +38,11 @@ public class TouristAttractionService {
     }
 
     // Update
-    public TouristAttraction updateAttraction(String oldName, String newName, String description, String city, List<String> tags) {
+    public TouristAttraction updateAttraction(String oldName, String newName, String description, City city, List<Tags> tags) {
         return repository.updateAttraction(oldName, newName, description, city, tags);
     }
 
-    public List<String> getCities() {
-        return repository.getCities();
-    }
 
-    public List<String> getTags() {
-        return repository.getTags();
-    }
 }
 
 

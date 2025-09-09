@@ -1,17 +1,16 @@
 package com.example.touristguide2.models;
 
-import java.util.HashSet;
 import java.util.List;
 
 public class TouristAttraction {
     private String name;
     private String description;
-    private String city;
-    private List<String> tags;
+    private City city;
+    private List<Tags> tags;
 
 
 
-    public TouristAttraction(String name, String description, String city, List<String> tags) {
+    public TouristAttraction(String name, String description, City city, List<Tags> tags) {
         this.name = name;
         this.description = description;
         this.city = city;
@@ -37,19 +36,19 @@ public class TouristAttraction {
         this.description = description;
     }
 
-    public List<String> getTags() {
+    public List<Tags> getTags() {
         return tags;
     }
 
-    public void setTags(List<String> tags) {
+    public void setTags(List<Tags> tags) {
         this.tags = tags;
     }
 
-    public String getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(City city) {
         this.city = city;
     }
 }
